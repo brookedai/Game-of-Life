@@ -49,9 +49,17 @@ public class Board {
 
     // REQUIRES: 0 <= r < rows, 0 <= c < cols
     // MODIFIES: this
-    // EFFECTS: sets cell at (r, c) to given state
+    // EFFECTS: sets cell at (r, c) to given living state
     public void setCell(int r, int c, boolean isAlive) {
         this.board[r][c].setAlive(isAlive);
+    }
+
+    // EFFECTS: returns string representation of board
+    //          with Os representing live cells and
+    //          Xs representing dead cells
+    @Override
+    public String toString() {
+        return ""; // stub
     }
 
 }
