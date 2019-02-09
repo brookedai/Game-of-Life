@@ -1,6 +1,8 @@
 package model;
 
 public class Board {
+    public static final int DEFAULT_NUM = 50;
+
     private int rows;
     private int cols;
     private Cell[][] board;
@@ -16,14 +18,14 @@ public class Board {
 
     // EFFECTS: constructs a new board with 50 rows and 50 columns
     public Board() {
-        this(50, 50);
+        this(DEFAULT_NUM, DEFAULT_NUM);
     }
 
     // MODIFIES: this
     // EFFECTS: initializes board by filling with dead cells
     private void init() {
         for (int i = 0; i < this.rows; i++) {
-            for (int j = 0; j < this.rows; j++) {
+            for (int j = 0; j < this.cols; j++) {
                 board[i][j] = new Cell(false);
             }
         }
@@ -45,5 +47,11 @@ public class Board {
         return this.board[r][c];
     }
 
+    // REQUIRES: 0 <= r < rows, 0 <= c < cols
+    // MODIFIES: this
+    // EFFECTS: sets cell at (r, c) to given state
+    public void setCell(int r, int c, boolean isAlive) {
+        this.board[r][c].setAlive(isAlive);
+    }
 
 }
