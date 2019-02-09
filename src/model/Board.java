@@ -54,12 +54,25 @@ public class Board {
         this.board[r][c].setAlive(isAlive);
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates cells in board
+    public void update() {
+
+    }
+
     // EFFECTS: returns string representation of board
     //          with Os representing live cells and
     //          Xs representing dead cells
     @Override
     public String toString() {
-        return ""; // stub
+        String s = "";
+        for (Cell[] row : board) {
+            for (Cell c : row) {
+                s += c.toString() + " ";
+            }
+            s += "\n";
+        }
+        return s;
     }
 
 }

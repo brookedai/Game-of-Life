@@ -22,7 +22,10 @@ public class Cell {
     // EFFECTS: returns a string representation of the cell,
     //          with O for live cell and X for dead cell
     public String toString() {
-        return ""; // stub
+        if (isAlive) {
+            return "O";
+        }
+        return "X";
     }
 
 
