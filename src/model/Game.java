@@ -1,6 +1,4 @@
-package ui;
-
-import model.Board;
+package model;
 
 import java.util.Scanner;
 
@@ -13,15 +11,15 @@ public class Game {
     // EFFECTS: creates a new game
     public Game() {
         init();
+    }
+
+    // EFFECTS: runs the game
+    public void run() {
         while (!gameFinished) {
             displayBoard();
             System.out.print("What will you do? ");
             runCommand(getInput());
         }
-    }
-
-    public static void main(String[] args) {
-        Game g = new Game();
     }
 
     // MODIFIES: this
@@ -38,6 +36,9 @@ public class Game {
 
     // REQUIRES: command is not empty
     // EFFECTS: performs an action based on user input
+    //          commands: "r c bool" - sets cell at (r,c) alive state to bool
+    //                    next - steps the board
+    //                    quit - exits the program
     private void runCommand(String input) {
         if (input.contains(" ")) {
             String[] s = input.split(" ");
@@ -45,6 +46,7 @@ public class Game {
         } else if (input.equals("next")) {
             b.update();
         } else if (input.equals("quit")) {
+            System.out.println("Thank you for playing!");
             System.exit(0);
         } else {
             System.out.println("That is not a valid input.");

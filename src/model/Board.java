@@ -1,7 +1,9 @@
 package model;
 
+import model.exceptions.CellNotWithinBoundsException;
+
 public class Board {
-    public static final int DEFAULT_NUM = 50;
+    public static final int DEFAULT_NUM = 30;
 
     private int rows;
     private int cols;
@@ -47,17 +49,25 @@ public class Board {
         return this.board[r][c];
     }
 
-    // REQUIRES: 0 <= r < rows, 0 <= c < cols
     // MODIFIES: this
     // EFFECTS: sets cell at (r, c) to given living state
     public void setCell(int r, int c, boolean isAlive) {
-        this.board[r][c].setAlive(isAlive);
+        if (withinBounds(r, c)) {
+            this.board[r][c].setAlive(isAlive);
+        } else {
+            throw new CellNotWithinBoundsException("You cannot set the cell at " + r + " " + c);
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: updates cells in board
     public void update() {
 
+    }
+
+    // EFFECTS: returns true if 0 <= r < rows and 0 <= c < cols
+    private boolean withinBounds(int r, int c) {
+        return (0 <= r && r < rows && 0 <= c && c < cols);
     }
 
     // EFFECTS: returns string representation of board
