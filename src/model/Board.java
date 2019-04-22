@@ -3,7 +3,7 @@ package model;
 import model.exceptions.CellNotWithinBoundsException;
 
 public class Board {
-    public static final int DEFAULT_NUM = 30;
+    public static final int DEFAULT_NUM = 10;
 
     private int rows;
     private int cols;
@@ -18,7 +18,7 @@ public class Board {
         init();
     }
 
-    // EFFECTS: constructs a new board with 50 rows and 50 columns
+    // EFFECTS: constructs a new board with 10 rows and 10 columns
     public Board() {
         this(DEFAULT_NUM, DEFAULT_NUM);
     }
@@ -52,7 +52,7 @@ public class Board {
     // MODIFIES: this
     // EFFECTS: sets cell at (r, c) to given living state
     public void setCell(int r, int c, boolean isAlive) {
-        if (withinBounds(r, c)) {
+        if (withinBounds(r, rows) && withinBounds(c, cols)) {
             this.board[r][c].setAlive(isAlive);
         } else {
             throw new CellNotWithinBoundsException("You cannot set the cell at " + r + " " + c);
@@ -62,12 +62,56 @@ public class Board {
     // MODIFIES: this
     // EFFECTS: updates cells in board
     public void update() {
-
+        Cell[][] nextBoard = boardCopy();
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                nextBoard[r][c] = nextCell(r, c);
+            }
+        }
+        board = nextBoard;
     }
 
-    // EFFECTS: returns true if 0 <= r < rows and 0 <= c < cols
-    private boolean withinBounds(int r, int c) {
-        return (0 <= r && r < rows && 0 <= c && c < cols);
+    // EFFECTS: returns the next cell at (r, c)
+    private Cell nextCell(int r, int c) {
+        int neighbours = numNeighbours(r, c);
+        if ((board[r][c].isAlive() && neighbours == 2)
+            || neighbours == 3) {
+            return new Cell(true);
+        }
+        return new Cell(false);
+    }
+
+    // EFFECTS: returns the number of live neighbours surrounding cell at (r, c)
+    private int numNeighbours(int r, int c) {
+        int count = 0;
+        for (int row = r - 1; row <= r + 1; row ++) {
+            if (withinBounds(row, rows)) {
+
+                for (int col = c - 1; col <= c + 1; col++) {
+                    if (withinBounds(col, cols) && (row != r || col != c)) {
+                        count += board[row][col].isAlive() ? 1 : 0;
+                    }
+                }
+
+            }
+        }
+        return count;
+    }
+
+    // EFFECTS: returns true if 0 <= num < bound
+    private boolean withinBounds(int num, int bound) {
+        return 0 <= num && num < bound;
+    }
+
+    // EFFECTS: returns a copy of the board
+    private Cell[][] boardCopy() {
+        Cell[][] newBoard = new Cell[rows][cols];
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                newBoard[r][c] = new Cell(board[r][c].isAlive());
+            }
+        }
+        return newBoard;
     }
 
     // EFFECTS: returns string representation of board
@@ -75,14 +119,15 @@ public class Board {
     //          Xs representing dead cells
     @Override
     public String toString() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (Cell[] row : board) {
             for (Cell c : row) {
-                s += c.toString() + " ";
+                s.append(c.toString());
+                s.append(" ");
             }
-            s += "\n";
+            s.append("\n");
         }
-        return s;
+        return s.toString();
     }
 
 }

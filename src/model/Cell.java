@@ -25,7 +25,7 @@ public class Cell {
         if (isAlive) {
             return "O";
         }
-        return "X";
+        return " ";
     }
 
 
