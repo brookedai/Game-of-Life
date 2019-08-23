@@ -7,3 +7,5 @@
 - quit&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; quits the program</p>&emsp;
 
 ![Program demo](gameoflife-cli-demo-1.gif)
+
+...more functionality to be added.
