@@ -1,5 +1,3 @@
-package ui;
-
 import model.Game;
 
 import java.util.Scanner;

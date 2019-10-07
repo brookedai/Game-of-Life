@@ -9,6 +9,10 @@ public class Board {
     private int cols;
     private Cell[][] board;
 
+    //==================================================================================================================
+    //===========================================  C O N S T R U C T O R S  ============================================
+    //==================================================================================================================
+
     // REQUIRES: rows, cols > 0
     // EFFECTS: constructs a new board with given rows and cols
     public Board(int rows, int cols) {
@@ -23,15 +27,10 @@ public class Board {
         this(DEFAULT_NUM, DEFAULT_NUM);
     }
 
-    // MODIFIES: this
-    // EFFECTS: initializes board by filling with dead cells
-    private void init() {
-        for (int i = 0; i < this.rows; i++) {
-            for (int j = 0; j < this.cols; j++) {
-                board[i][j] = new Cell(false);
-            }
-        }
-    }
+
+    //==================================================================================================================
+    //=========================================  P U B L I C   M E T H O D S  ==========================================
+    //==================================================================================================================
 
     // EFFECTS: returns number of rows in board
     public int getRows() {
@@ -69,6 +68,36 @@ public class Board {
             }
         }
         board = nextBoard;
+    }
+
+    // EFFECTS: returns string representation of board
+    //          with Os representing live cells and
+    //          Xs representing dead cells
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (Cell[] row : board) {
+            for (Cell c : row) {
+                s.append(c.toString());
+                s.append(" ");
+            }
+            s.append("\n");
+        }
+        return s.toString();
+    }
+
+    //==================================================================================================================
+    //=======================================  P R I V A T E   M E T H O D S  ==========================================
+    //==================================================================================================================
+
+    // MODIFIES: this
+    // EFFECTS: initializes board by filling with dead cells
+    private void init() {
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                board[i][j] = new Cell(false);
+            }
+        }
     }
 
     // EFFECTS: returns the next cell at (r, c)
@@ -114,20 +143,6 @@ public class Board {
         return newBoard;
     }
 
-    // EFFECTS: returns string representation of board
-    //          with Os representing live cells and
-    //          Xs representing dead cells
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        for (Cell[] row : board) {
-            for (Cell c : row) {
-                s.append(c.toString());
-                s.append(" ");
-            }
-            s.append("\n");
-        }
-        return s.toString();
-    }
+
 
 }
