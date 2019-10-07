@@ -1,7 +1,7 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class MainApp extends Application {
     private Stage primaryStage;
-    private BorderPane rootLayout;
+    private VBox rootLayout;
 
 
     @Override
@@ -20,12 +20,11 @@ public class MainApp extends Application {
 
         initRootLayout();
 
-
     }
 
     public void initRootLayout() {
         try {
-            rootLayout = FXMLLoader.load(getClass().getClassLoader().getResource("view/view.fxml"));
+            rootLayout = FXMLLoader.load(getClass().getClassLoader().getResource("view.fxml"));
 
             // show the scene containing the root layout
             Scene scene = new Scene(rootLayout);
