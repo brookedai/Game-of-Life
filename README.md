@@ -5,3 +5,7 @@
 - next&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;updates the board to the next state<br/>
 - run&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;board updates automatically (in this mode, you can only exit by exiting the program)<br/>
 - quit&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; quits the program</p>&emsp;
+
+![Program demo](gameoflife-cli-demo-1.gif)
+
+...more functionality to be added.
